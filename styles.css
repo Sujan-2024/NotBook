@@ -1,0 +1,143 @@
+/* Custom styles for Todo Master */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+    border-bottom: none;
+}
+
+#todo-list .list-group-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px !important;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+#todo-list .list-group-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#todo-list .list-group-item.completed {
+    background-color: #f8f9fa;
+    opacity: 0.8;
+}
+
+#todo-list .list-group-item.completed .todo-text {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.todo-text {
+    flex-grow: 1;
+    margin: 0 1rem;
+    word-break: break-word;
+}
+
+.btn-group .btn {
+    border-radius: 20px;
+    margin: 0 5px;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-group .btn.active {
+    background-color: #4b6cb7;
+    color: white;
+}
+
+#todo-input {
+    border-radius: 20px 0 0 20px;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #e9ecef;
+}
+
+#todo-form .btn {
+    border-radius: 0 20px 20px 0;
+    padding: 0.75rem 1.5rem;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.todo-actions button {
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.todo-actions button:hover {
+    transform: scale(1.1);
+}
+
+.btn-complete {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+#export-excel {
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+#export-excel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Custom checkbox style */
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #4b6cb7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.todo-checkbox.checked {
+    background-color: #4b6cb7;
+    border-color: #4b6cb7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .btn-group {
+        flex-wrap: wrap;
+    }
+    
+    .btn-group .btn {
+        margin: 0.25rem;
+    }
+} 
