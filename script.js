@@ -38,11 +38,17 @@ function createTodoElement(todo) {
     const actions = document.createElement('div');
     actions.className = 'todo-actions';
 
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-edit me-2';
+    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+    editBtn.addEventListener('click', () => enableEditMode(todo.id));
+
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-delete';
     deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
     deleteBtn.addEventListener('click', () => deleteTodo(todo.id));
 
+    actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
     li.appendChild(checkbox);
     li.appendChild(text);
@@ -122,6 +128,61 @@ function exportToExcel() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Todos');
     XLSX.writeFile(wb, 'todo-list.xlsx');
+}
+
+// Enable edit mode for a todo item
+function enableEditMode(id) {
+    const todo = todos.find(t => t.id === id);
+    if (!todo) return;
+
+    const li = document.querySelector(`[data-id="${id}"]`);
+    const text = li.querySelector('.todo-text');
+    const currentText = text.textContent;
+
+    // Create edit input
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control edit-input';
+    input.value = currentText;
+
+    // Create save and cancel buttons
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'btn btn-success btn-sm ms-2';
+    saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+    saveBtn.addEventListener('click', () => saveEdit(id, input.value));
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'btn btn-secondary btn-sm ms-2';
+    cancelBtn.innerHTML = '<i class="fas fa-times"></i>';
+    cancelBtn.addEventListener('click', () => cancelEdit(id, currentText));
+
+    // Replace text with input and buttons
+    text.replaceWith(input);
+    const actions = li.querySelector('.todo-actions');
+    actions.innerHTML = '';
+    actions.appendChild(saveBtn);
+    actions.appendChild(cancelBtn);
+    input.focus();
+}
+
+// Save edited todo
+function saveEdit(id, newText) {
+    if (!newText.trim()) return;
+
+    todos = todos.map(todo => {
+        if (todo.id === id) {
+            return { ...todo, text: newText.trim() };
+        }
+        return todo;
+    });
+
+    saveTodos();
+    renderTodos();
+}
+
+// Cancel edit mode
+function cancelEdit(id, originalText) {
+    renderTodos();
 }
 
 // Event Listeners
